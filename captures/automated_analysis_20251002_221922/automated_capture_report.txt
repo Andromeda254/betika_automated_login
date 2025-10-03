@@ -1,0 +1,53 @@
+Automated Stealth Capture Report
+================================
+
+Capture Time: Thu Oct  2 10:19:23 PM EDT 2025
+Node Script: script3.js
+Capture File: /home/kali/betika_automated_login/captures/betika_automated_stealth_20251002_221448.pcap
+SSL Keylog: /home/kali/betika_automated_login/sslkeys/sslkeys.log
+Analysis Directory: /home/kali/betika_automated_login/captures/automated_analysis_20251002_221922
+
+Session Details:
+- Packet Capture PID:  (completed)
+- Node.js Script PID: 232483 (completed)
+- Firecrawl MCP PID: 232426
+- Apify MCP PID: 'Not started'
+
+Target Hosts Monitored:
+- api.betika.com (Internal API)
+- live.betika.com (Live betting API)  
+- segment.prod.bidr.io (Beeswax RTB - Real-time bidding)
+- match.prod.bidr.io (Beeswax RTB - Match data)
+- dsp-ap.eskimi.com (Eskimi DSP - Advertising platform)
+- eskimi.com (Eskimi main platform)
+
+Files Generated:
+- http_objects/ - Extracted HTTP response bodies
+- http_summary.csv - Request/response log with timing
+- automated_capture_report.txt - This report
+
+Traffic Analysis:
+- Total HTTP requests: 'N/A'
+- Betika API requests: 'N/A'
+- bidr.io requests: 'N/A'
+- eskimi.com requests: 'N/A'
+- JSON objects extracted: 'N/A'
+- External provider JSONs: 'N/A'
+
+External Provider Status:
+- bidr.io (Beeswax): ❌ No traffic detected
+- eskimi.com: ❌ No traffic detected
+
+Next Steps:
+1. Run detailed analysis: ./parse_stealth_capture.sh "/home/kali/betika_automated_login/captures/automated_analysis_20251002_221922"
+2. Review external provider JSON files for raw odds data
+3. Correlate external data with Betika API responses
+4. Map data transformation patterns
+5. Build automated extraction pipeline
+
+MCP Integration:
+- Firecrawl MCP: Available for enhanced crawling
+- Apify MCP: Not available
+
+Command to analyze:
+./parse_stealth_capture.sh "/home/kali/betika_automated_login/captures/automated_analysis_20251002_221922"

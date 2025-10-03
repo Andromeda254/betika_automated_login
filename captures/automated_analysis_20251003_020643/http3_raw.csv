@@ -1,0 +1,6 @@
+frame.time|quic.dcid|tls.handshake.extensions_server_name|quic.header_form|quic.long.packet_type
+Oct  3, 2025 01:55:59.680571000 EDT|713931c022d88a16|betika.com|1|0
+Oct  3, 2025 01:56:06.757599000 EDT|ba4168ef378e3340|www.betika.com|1|0
+Oct  3, 2025 01:57:01.112391000 EDT|c60b225f78281f48|live.betika.com|1|0
+Oct  3, 2025 01:57:02.743762000 EDT|b79ea3e40eada9da|api.betika.com|1|0
+Oct  3, 2025 02:00:14.065215000 EDT|c95ee6e5b000c254|userinfo.betika.com|1|0

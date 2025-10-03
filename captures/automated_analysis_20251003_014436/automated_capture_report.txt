@@ -1,0 +1,60 @@
+Automated Stealth Capture Report
+================================
+
+Capture Time: Fri Oct  3 01:44:39 AM EDT 2025
+Node Script: script3_live_nav.js
+Capture File: /home/kali/betika_automated_login/captures/betika_automated_stealth_20251003_013035.pcap
+SSL Keylog: /home/kali/betika_automated_login/sslkeys/sslkeys.log
+Analysis Directory: /home/kali/betika_automated_login/captures/automated_analysis_20251003_014436
+
+Session Details:
+- Packet Capture PID:  (completed)
+- Node.js Script PID: 5350 (completed)
+- Firecrawl MCP PID: 5286
+- Apify MCP PID: 'Not started'
+
+Target Hosts Monitored:
+- api.betika.com (Internal API)
+- live.betika.com (Live betting API)  
+- segment.prod.bidr.io (Beeswax RTB - Real-time bidding)
+- match.prod.bidr.io (Beeswax RTB - Match data)
+- dsp-ap.eskimi.com (Eskimi DSP - Advertising platform)
+- eskimi.com (Eskimi main platform)
+
+Files Generated:
+- http_objects/ - Extracted HTTP response bodies
+- http_summary.csv - HTTP/1.1 & HTTP/2 request/response log
+- http3_summary.csv - HTTP/3 request/response log
+- combined_requests.csv - All protocols combined summary
+- ws_summary.csv - WebSocket frames summary (if present)
+- ws_frames.json - Raw WebSocket frames (JSON, if present)
+- automated_capture_report.txt - This report
+
+Traffic Analysis:
+- Total requests (all protocols): 0
+- HTTP/3 requests: 0
+0
+- Betika API requests: 0
+- bidr.io requests: 0
+- eskimi.com requests: 0
+- JSON objects extracted: 'N/A'
+- External provider JSONs: 'N/A'
+- WebSocket frames: -1
+
+External Provider Status:
+- bidr.io (Beeswax): ❌ No traffic detected
+- eskimi.com: ❌ No traffic detected
+
+Next Steps:
+1. Run detailed analysis: ./parse_stealth_capture.sh "/home/kali/betika_automated_login/captures/automated_analysis_20251003_014436"
+2. Review external provider JSON files for raw odds data
+3. Correlate external data with Betika API responses
+4. Map data transformation patterns
+5. Build automated extraction pipeline
+
+MCP Integration:
+- Firecrawl MCP: Available for enhanced crawling
+- Apify MCP: Not available
+
+Command to analyze:
+./parse_stealth_capture.sh "/home/kali/betika_automated_login/captures/automated_analysis_20251003_014436"

@@ -226,7 +226,34 @@ if [ -f "$SSL_KEYLOG_FILE" ] && [ -s "$SSL_KEYLOG_FILE" ]; then
     
     echo -e "${GREEN}✅ HTTP objects extracted to: $ANALYSIS_DIR/http_objects${NC}"
     
-    # Generate traffic summary
+    # Extract WebSocket frames summary (if any)
+    echo -e "${BLUE}🧩 Extracting WebSocket frames...${NC}"
+    # Save JSON dump of websocket frames
+    (tshark -r "$CAPTURE_FILE" \
+           -o tls.keylog_file:"$SSL_KEYLOG_FILE" \
+           -Y 'websocket' \
+           -T json 2>/dev/null || true) > "$ANALYSIS_DIR/ws_frames.json"
+    
+    # Generate lightweight CSV summary of websocket frames
+    (tshark -r "$CAPTURE_FILE" \
+           -o tls.keylog_file:"$SSL_KEYLOG_FILE" \
+           -Y 'websocket' \
+           -T fields \
+           -e frame.time \
+           -e ip.src \
+           -e ip.dst \
+           -e tcp.srcport \
+           -e tcp.dstport \
+           -e websocket.fin \
+           -e websocket.opcode \
+           -e websocket.payload_length \
+           -E header=y -E separator='|' 2>/dev/null || true) > "$ANALYSIS_DIR/ws_summary.csv"
+    
+    if [ -s "$ANALYSIS_DIR/ws_summary.csv" ]; then
+        echo -e "${GREEN}✅ WebSocket summary generated${NC}"
+    fi
+    
+    # Generate HTTP/1.1 and HTTP/2 traffic summary
     tshark -r "$CAPTURE_FILE" \
            -o tls.keylog_file:"$SSL_KEYLOG_FILE" \
            -Y 'http && (http.host contains "betika.com" or http.host contains "bidr.io" or http.host contains "eskimi.com")' \
@@ -240,16 +267,98 @@ if [ -f "$SSL_KEYLOG_FILE" ] && [ -s "$SSL_KEYLOG_FILE" ]; then
            -E header=y \
            -E separator='|' > "$ANALYSIS_DIR/http_summary.csv" 2>/dev/null || true
     
-    if [ -s "$ANALYSIS_DIR/http_summary.csv" ]; then
+    # Generate HTTP/3 traffic summary with QUIC decryption (simplified for current TShark version)
+    echo -e "${BLUE}🌐 Extracting HTTP/3 requests with QUIC decryption...${NC}"
+    tshark -r "$CAPTURE_FILE" \
+           -o tls.keylog_file:"$SSL_KEYLOG_FILE" \
+           -Y 'quic && (tls.handshake.extensions_server_name contains "betika.com" or tls.handshake.extensions_server_name contains "bidr.io" or tls.handshake.extensions_server_name contains "eskimi.com")' \
+           -T fields \
+           -e frame.time \
+           -e quic.dcid \
+           -e tls.handshake.extensions_server_name \
+           -e quic.header_form \
+           -e quic.long.packet_type \
+           -E header=y \
+           -E separator='|' > "$ANALYSIS_DIR/http3_raw.csv" 2>/dev/null || true
+    
+    # Process HTTP/3 raw data into structured summary with fallback parsing
+    if [ -s "$ANALYSIS_DIR/http3_raw.csv" ]; then
+        echo -e "${GREEN}✅ HTTP/3 raw data captured, processing with enhanced parsing...${NC}"
+        
+        # Create structured HTTP/3 summary
+        echo "frame.time|authority|method|path|status|content_type" > "$ANALYSIS_DIR/http3_summary.csv"
+        
+        # Process QUIC traffic for target domains
+        awk -F'|' 'NR>1 {
+            time=$1; dcid=$2; server_name=$3; header_form=$4; packet_type=$5
+            
+            # Extract QUIC connections to target domains
+            if (server_name && server_name ~ /(betika\.com|bidr\.io|eskimi\.com)/) {
+                printf "%s|%s|QUIC|HTTP3|UNKNOWN|\n", time, server_name
+            }
+        }' "$ANALYSIS_DIR/http3_raw.csv" >> "$ANALYSIS_DIR/http3_summary.csv" 2>/dev/null || true
+        
+    else
+        echo "frame.time|authority|method|path|status|content_type" > "$ANALYSIS_DIR/http3_summary.csv"
+    fi
+    
+    # Generate combined request summary (HTTP/1.1, HTTP/2, HTTP/3)
+    echo -e "${BLUE}🔗 Creating combined request summary...${NC}"
+    {
+        echo "timestamp|host|method|uri|status|protocol"
+        # Add HTTP/1.1 and HTTP/2 entries
+        if [ -s "$ANALYSIS_DIR/http_summary.csv" ]; then
+            tail -n +2 "$ANALYSIS_DIR/http_summary.csv" 2>/dev/null | while IFS='|' read -r time host method uri status type; do
+                [ -n "$time" ] && echo "$time|$host|$method|$uri|$status|HTTP"
+            done
+        fi
+        # Add HTTP/3 entries (simplified)
+        if [ -s "$ANALYSIS_DIR/http3_summary.csv" ]; then
+            tail -n +2 "$ANALYSIS_DIR/http3_summary.csv" 2>/dev/null | while IFS='|' read -r time authority method path status type; do
+                [ -n "$time" ] && echo "$time|$authority|$method|$path|$status|HTTP3"
+            done
+        fi
+    } > "$ANALYSIS_DIR/combined_requests.csv"
+    
+    # Analyze captured requests from all protocols
+    if [ -s "$ANALYSIS_DIR/combined_requests.csv" ]; then
+        echo -e "${GREEN}✅ Combined request summary generated${NC}"
+        
+        # Quick analysis from combined summary
+        total_requests=$(( $(wc -l < "$ANALYSIS_DIR/combined_requests.csv") - 1 ))
+        betika_requests=$(grep -i "betika\.com" "$ANALYSIS_DIR/combined_requests.csv" 2>/dev/null | wc -l || echo "0")
+        bidr_requests=$(grep -i "bidr\.io" "$ANALYSIS_DIR/combined_requests.csv" 2>/dev/null | wc -l || echo "0")
+        eskimi_requests=$(grep -i "eskimi\.com" "$ANALYSIS_DIR/combined_requests.csv" 2>/dev/null | wc -l || echo "0")
+        http3_requests=$(grep -c "HTTP3" "$ANALYSIS_DIR/combined_requests.csv" 2>/dev/null || echo "0")
+        
+        echo -e "${BLUE}📊 Traffic Summary:${NC}"
+        echo -e "${YELLOW}  Total requests: $total_requests${NC}"
+        echo -e "${YELLOW}  HTTP/3 requests: $http3_requests${NC}"
+        echo -e "${YELLOW}  Betika requests: $betika_requests${NC}"
+        echo -e "${YELLOW}  bidr.io requests: $bidr_requests${NC}"
+        echo -e "${YELLOW}  eskimi.com requests: $eskimi_requests${NC}"
+        
+        if [ "$bidr_requests" -gt 0 ]; then
+            echo -e "${GREEN}🎯 SUCCESS: bidr.io external provider data captured!${NC}"
+        fi
+        
+        if [ "$eskimi_requests" -gt 0 ]; then
+            echo -e "${GREEN}🎯 SUCCESS: eskimi.com external provider data captured!${NC}"
+        fi
+        
+        if [ "$http3_requests" -gt 0 ]; then
+            echo -e "${GREEN}🌐 HTTP/3 traffic detected and captured!${NC}"
+        fi
+    elif [ -s "$ANALYSIS_DIR/http_summary.csv" ]; then
         echo -e "${GREEN}✅ HTTP summary generated${NC}"
         
-        # Quick analysis
+        # Fallback to HTTP-only analysis
         total_requests=$(( $(wc -l < "$ANALYSIS_DIR/http_summary.csv") - 1 ))
         betika_requests=$(grep -i "betika\.com" "$ANALYSIS_DIR/http_summary.csv" 2>/dev/null | wc -l || echo "0")
         bidr_requests=$(grep -i "bidr\.io" "$ANALYSIS_DIR/http_summary.csv" 2>/dev/null | wc -l || echo "0")
         eskimi_requests=$(grep -i "eskimi\.com" "$ANALYSIS_DIR/http_summary.csv" 2>/dev/null | wc -l || echo "0")
         
-        echo -e "${BLUE}📊 Traffic Summary:${NC}"
+        echo -e "${BLUE}📊 Traffic Summary (HTTP/1.1 & HTTP/2 only):${NC}"
         echo -e "${YELLOW}  Total HTTP requests: $total_requests${NC}"
         echo -e "${YELLOW}  Betika requests: $betika_requests${NC}"
         echo -e "${YELLOW}  bidr.io requests: $bidr_requests${NC}"
@@ -322,16 +431,22 @@ Target Hosts Monitored:
 
 Files Generated:
 - http_objects/ - Extracted HTTP response bodies
-- http_summary.csv - Request/response log with timing
+- http_summary.csv - HTTP/1.1 & HTTP/2 request/response log
+- http3_summary.csv - HTTP/3 request/response log
+- combined_requests.csv - All protocols combined summary
+- ws_summary.csv - WebSocket frames summary (if present)
+- ws_frames.json - Raw WebSocket frames (JSON, if present)
 - automated_capture_report.txt - This report
 
 Traffic Analysis:
-- Total HTTP requests: ${total_requests:-'N/A'}
+- Total requests (all protocols): ${total_requests:-'N/A'}
+- HTTP/3 requests: ${http3_requests:-'N/A'}
 - Betika API requests: ${betika_requests:-'N/A'}
 - bidr.io requests: ${bidr_requests:-'N/A'}
 - eskimi.com requests: ${eskimi_requests:-'N/A'}
 - JSON objects extracted: ${json_count:-'N/A'}
 - External provider JSONs: ${external_jsons:-'N/A'}
+- WebSocket frames: $( [ -f "$ANALYSIS_DIR/ws_summary.csv" ] && echo $(($(wc -l < "$ANALYSIS_DIR/ws_summary.csv")-1)) || echo 'N/A')
 
 External Provider Status:
 - bidr.io (Beeswax): $([ "${bidr_requests:-0}" -gt 0 ] && echo "✅ ACTIVE - Data captured" || echo "❌ No traffic detected")

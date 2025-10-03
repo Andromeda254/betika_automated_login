@@ -50,21 +50,23 @@ get_domain_from_file() {
     local file="$1"
     local filename=$(basename "$file")
     
-    # Try to extract domain from filename patterns
+    # Quick filename-based hints
     if [[ "$filename" == *"betika"* ]]; then
-        echo "betika.com"
-    elif [[ "$filename" == *"bidr"* ]]; then
-        echo "bidr.io"
-    elif [[ "$filename" == *"eskimi"* ]]; then
-        echo "eskimi.com"
+        echo "betika.com"; return
+    fi
+    if [[ "$filename" == *"bidr"* || "$filename" == *"segment.prod.bidr.io"* || "$filename" == *"match.prod.bidr.io"* ]]; then
+        echo "bidr.io"; return
+    fi
+    if [[ "$filename" == *"eskimi"* || "$filename" == gtr* ]]; then
+        echo "eskimi.com"; return
+    fi
+
+    # Content-based detection
+    local domain=$(head -50 "$file" 2>/dev/null | grep -oE '(api\.betika\.com|live\.betika\.com|[a-zA-Z0-9.-]*\.bidr\.io|[a-zA-Z0-9.-]*\.eskimi\.com|betika\.com)' | head -1)
+    if [ -n "$domain" ]; then
+        echo "$domain"
     else
-        # Try to find domain in file content (first few lines)
-        local domain=$(head -20 "$file" 2>/dev/null | grep -oE '(api\.betika\.com|live\.betika\.com|[a-zA-Z0-9.-]*\.bidr\.io|[a-zA-Z0-9.-]*\.eskimi\.com)' | head -1)
-        if [ -n "$domain" ]; then
-            echo "$domain"
-        else
-            echo "unknown"
-        fi
+        echo "unknown"
     fi
 }
 
@@ -297,6 +299,19 @@ fi
 # Generate final report
 FINAL_REPORT="$PARSED_DIR/analysis_report.md"
 
+# Build dynamic sections first to avoid inline command substitutions in heredoc
+HAS_HTTP_SUMMARY="$( [ -f "$HTTP_SUMMARY" ] && echo yes || echo no )"
+WS_SUMMARY="$ANALYSIS_DIR/ws_summary.csv"
+HAS_WS_SUMMARY="$( [ -f "$WS_SUMMARY" ] && echo yes || echo no )"
+
+# Compose file list
+FILE_LIST=""
+for file in "$PARSED_DIR"/*.json 2>/dev/null; do
+    if [ -f "$file" ]; then
+        FILE_LIST+="- $(basename \"$file\")\n"
+    fi
+done
+
 cat > "$FINAL_REPORT" << EOF
 # Betika Stealth Capture Analysis Report
 
@@ -339,13 +354,23 @@ else
 fi)
 
 ### Data Correlation
-$(if [ -f "$HTTP_SUMMARY" ]; then
+$(if [ "$HAS_HTTP_SUMMARY" = "yes" ]; then
     echo "✅ **HTTP request patterns analyzed**"
     echo "- Request timing data available"
     echo "- API endpoint mapping complete"
 else
     echo "⚠️ **Limited correlation data**"
     echo "- HTTP summary not available"
+fi)
+
+### WebSocket Activity
+$(if [ "$HAS_WS_SUMMARY" = "yes" ]; then
+    ws_count=$(( $(wc -l < "$WS_SUMMARY") - 1 ))
+    [ $ws_count -lt 0 ] && ws_count=0
+    echo "✅ **WebSocket frames captured**: $ws_count"
+    echo "- See ws_summary.csv for frame-level metadata"
+else
+    echo "ℹ️ No websocket summary file found"
 fi)
 
 ## Next Steps
@@ -355,11 +380,7 @@ fi)
 4. **Data Extraction**: Build automated parsers for identified patterns
 
 ## Files for Review
-$(for file in "$PARSED_DIR"/*.json 2>/dev/null; do
-    if [ -f "$file" ]; then
-        echo "- $(basename "$file")"
-    fi
-done)
+$FILE_LIST
 
 EOF
 

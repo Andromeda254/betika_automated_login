@@ -1,0 +1,10 @@
+frame.time|http.host|http.request.method|http.request.uri|http.response.code|http.content_type
+Oct  2, 2025 23:11:39.825961000 EDT|dsp-ap.eskimi.com|GET|/v2/gtr?id=25605&url=https%3A%2F%2Fwww.betika.com%2Fen-ke%2F&t=1759461099340||
+Oct  2, 2025 23:11:45.065478000 EDT|segment.prod.bidr.io|GET|/associate-segment?buzz_key=geniussportsmedia&segment_key=geniussportsmedia-2264&value=||
+Oct  2, 2025 23:11:45.185147000 EDT|match.prod.bidr.io|GET|/cookie-sync/geniussports||
+Oct  2, 2025 23:11:45.235160000 EDT|segment.prod.bidr.io|GET|/associate-segment?buzz_key=geniussportsmedia&segment_key=geniussportsmedia-2264&value=&_bee_ppp=1||
+Oct  2, 2025 23:11:45.343574000 EDT|match.prod.bidr.io|GET|/cookie-sync/geniussports?_bee_ppp=1||
+Oct  2, 2025 23:11:55.600404000 EDT|match.prod.bidr.io|GET|/cookie-sync/geniussports||
+Oct  2, 2025 23:11:55.628468000 EDT|segment.prod.bidr.io|GET|/associate-segment?buzz_key=geniussportsmedia&segment_key=geniussportsmedia-2265&value=||
+Oct  2, 2025 23:11:55.749948000 EDT|match.prod.bidr.io|GET|/cookie-sync/geniussports?_bee_ppp=1||
+Oct  2, 2025 23:11:55.849364000 EDT|segment.prod.bidr.io|GET|/associate-segment?buzz_key=geniussportsmedia&segment_key=geniussportsmedia-2265&value=&_bee_ppp=1||
