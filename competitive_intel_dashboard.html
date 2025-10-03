@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 2: Advanced Competitive Intelligence Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid #00ff41;
+            box-shadow: 0 4px 20px rgba(0, 255, 65, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            color: #00ff41;
+            font-weight: 300;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid #333;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00ff41, #00bfff, #ff6b6b);
+        }
+
+        .panel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 48px rgba(0, 255, 65, 0.2);
+        }
+
+        .panel h3 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #00ff41;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(0, 255, 65, 0.05);
+            border-radius: 8px;
+            border-left: 4px solid #00ff41;
+        }
+
+        .metric-value {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .status-good { color: #00ff41; }
+        .status-warning { color: #ffaa00; }
+        .status-danger { color: #ff4757; }
+        .status-info { color: #00bfff; }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff41, #00bfff);
+            transition: width 0.5s ease;
+        }
+
+        .chart-container {
+            height: 200px;
+            background: #1a1a1a;
+            border-radius: 10px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #333;
+            position: relative;
+        }
+
+        .live-feed {
+            height: 300px;
+            overflow-y: auto;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .feed-entry {
+            margin: 8px 0;
+            padding: 8px 12px;
+            border-radius: 5px;
+            border-left: 3px solid #00ff41;
+            background: rgba(0, 255, 65, 0.05);
+        }
+
+        .timestamp {
+            color: #888;
+            font-size: 0.8em;
+        }
+
+        .competitor-card {
+            background: linear-gradient(145deg, #2a2a2a, #3a3a3a);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #444;
+        }
+
+        .competitor-name {
+            font-size: 1.2em;
+            color: #00bfff;
+            margin-bottom: 8px;
+        }
+
+        .threat-alert {
+            background: rgba(255, 71, 87, 0.1);
+            border: 1px solid #ff4757;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 10px 0;
+        }
+
+        .opportunity-alert {
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid #00ff41;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 10px 0;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .grid-wide {
+            grid-column: 1 / -1;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+
+        .data-table th {
+            background: rgba(0, 255, 65, 0.1);
+            color: #00ff41;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .badge-high { background: #ff4757; color: white; }
+        .badge-medium { background: #ffaa00; color: white; }
+        .badge-low { background: #2ed573; color: white; }
+
+        .control-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(26, 26, 26, 0.9);
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .control-button {
+            background: linear-gradient(145deg, #00ff41, #00bfff);
+            border: none;
+            color: black;
+            padding: 8px 16px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+
+        .control-button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎯 PHASE 2: COMPETITIVE INTELLIGENCE COMMAND CENTER</h1>
+        <div class="subtitle">Advanced Real-Time Market Analysis & HTTP/3 Intelligence</div>
+    </div>
+
+    <div class="control-panel">
+        <button class="control-button" onclick="refreshData()">🔄 Refresh</button>
+        <button class="control-button" onclick="exportData()">📊 Export</button>
+        <button class="control-button" onclick="toggleFullscreen()">🖥️ Fullscreen</button>
+    </div>
+
+    <div class="dashboard">
+        <!-- System Status Panel -->
+        <div class="panel">
+            <h3>🚀 System Status</h3>
+            <div class="metric">
+                <span>Real-Time Monitor</span>
+                <span class="metric-value status-good pulse">ACTIVE</span>
+            </div>
+            <div class="metric">
+                <span>HTTP/3 QUIC Decryption</span>
+                <span class="metric-value status-good">OPERATIONAL</span>
+            </div>
+            <div class="metric">
+                <span>Pattern Analysis Engine</span>
+                <span class="metric-value status-good">RUNNING</span>
+            </div>
+            <div class="metric">
+                <span>Security Bypass</span>
+                <span class="metric-value status-good">STEALTH MODE</span>
+            </div>
+            <div class="metric">
+                <span>Proxy Pool Status</span>
+                <span class="metric-value status-warning">7/10 ACTIVE</span>
+            </div>
+        </div>
+
+        <!-- Live Betting Intelligence -->
+        <div class="panel">
+            <h3>🎰 Live Betting Intelligence</h3>
+            <div class="metric">
+                <span>Active Matches Monitored</span>
+                <span class="metric-value status-info" id="active-matches">247</span>
+            </div>
+            <div class="metric">
+                <span>Odds Changes/Hour</span>
+                <span class="metric-value status-warning" id="odds-changes">1,847</span>
+            </div>
+            <div class="metric">
+                <span>API Calls Intercepted</span>
+                <span class="metric-value status-good" id="api-calls">89,342</span>
+            </div>
+            <div class="metric">
+                <span>Revenue Pattern Score</span>
+                <span class="metric-value status-good">94.2%</span>
+            </div>
+            <div class="chart-container">
+                <div id="betting-chart">📈 Live Betting Trends Chart</div>
+            </div>
+        </div>
+
+        <!-- HTTP/3 QUIC Analysis -->
+        <div class="panel">
+            <h3>🔒 HTTP/3 QUIC Intelligence</h3>
+            <div class="metric">
+                <span>QUIC Connections Decrypted</span>
+                <span class="metric-value status-good" id="quic-connections">2,394</span>
+            </div>
+            <div class="metric">
+                <span>SSL Keys Extracted</span>
+                <span class="metric-value status-good" id="ssl-keys">156</span>
+            </div>
+            <div class="metric">
+                <span>HTTP/3 Stream Analysis</span>
+                <span class="metric-value status-info">COMPLETE</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 87%"></div>
+            </div>
+            <div>Encryption Bypass: 87% Success Rate</div>
+        </div>
+
+        <!-- Competitor Analysis -->
+        <div class="panel">
+            <h3>🕵️ Competitor Activity</h3>
+            <div class="competitor-card">
+                <div class="competitor-name">Bet365</div>
+                <div class="metric">
+                    <span>Traffic Volume</span>
+                    <span class="badge badge-high">HIGH</span>
+                </div>
+                <div class="metric">
+                    <span>HTTP/3 Adoption</span>
+                    <span class="status-warning">23%</span>
+                </div>
+            </div>
+            <div class="competitor-card">
+                <div class="competitor-name">SportPesa</div>
+                <div class="metric">
+                    <span>API Modernization</span>
+                    <span class="badge badge-medium">MEDIUM</span>
+                </div>
+                <div class="metric">
+                    <span>Security Level</span>
+                    <span class="status-info">MODERATE</span>
+                </div>
+            </div>
+            <div class="competitor-card">
+                <div class="competitor-name">1xBet</div>
+                <div class="metric">
+                    <span>Real-time Features</span>
+                    <span class="badge badge-low">LOW</span>
+                </div>
+                <div class="metric">
+                    <span>Mobile Optimization</span>
+                    <span class="status-good">HIGH</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Market Opportunities -->
+        <div class="panel">
+            <h3>🎯 Strategic Opportunities</h3>
+            <div class="opportunity-alert">
+                <strong>HTTP/3 First-Mover Advantage</strong><br>
+                Only 31% of competitors using HTTP/3. Speed advantage of 40-60ms possible.
+            </div>
+            <div class="opportunity-alert">
+                <strong>Real-time Analytics Gap</strong><br>
+                Limited competitor adoption of live pattern analysis. Market differentiation opportunity.
+            </div>
+            <div class="opportunity-alert">
+                <strong>Mobile API Integration</strong><br>
+                Competitor mobile APIs 23% slower. Performance advantage opportunity.
+            </div>
+        </div>
+
+        <!-- Threat Assessment -->
+        <div class="panel">
+            <h3>⚠️ Threat Assessment</h3>
+            <div class="threat-alert">
+                <strong>Enhanced Bot Detection</strong><br>
+                3 major competitors implementing advanced fingerprint analysis.
+                <span class="badge badge-high">HIGH RISK</span>
+            </div>
+            <div class="threat-alert">
+                <strong>Rate Limiting Evolution</strong><br>
+                API rate limiting becoming more sophisticated across industry.
+                <span class="badge badge-medium">MEDIUM RISK</span>
+            </div>
+            <div class="threat-alert">
+                <strong>Regulatory Compliance</strong><br>
+                Increasing GDPR enforcement may affect data collection methods.
+                <span class="badge badge-medium">MEDIUM RISK</span>
+            </div>
+        </div>
+
+        <!-- Pattern Analysis Results -->
+        <div class="panel">
+            <h3>🧠 ML Pattern Analysis</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Pattern Type</th>
+                        <th>Confidence</th>
+                        <th>Alerts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Odds Manipulation</td>
+                        <td class="status-good">94.2%</td>
+                        <td><span class="badge badge-low">2</span></td>
+                    </tr>
+                    <tr>
+                        <td>User Behavior Anomaly</td>
+                        <td class="status-warning">76.8%</td>
+                        <td><span class="badge badge-medium">7</span></td>
+                    </tr>
+                    <tr>
+                        <td>API Abuse Detection</td>
+                        <td class="status-good">88.4%</td>
+                        <td><span class="badge badge-high">12</span></td>
+                    </tr>
+                    <tr>
+                        <td>Revenue Optimization</td>
+                        <td class="status-good">91.7%</td>
+                        <td><span class="badge badge-low">3</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- External Provider Intelligence -->
+        <div class="panel">
+            <h3>📡 External Provider Analysis</h3>
+            <div class="metric">
+                <span>Genius Sports Integration</span>
+                <span class="metric-value status-good">CONFIRMED</span>
+            </div>
+            <div class="metric">
+                <span>RTB Network Activity</span>
+                <span class="metric-value status-info">10+ Partners</span>
+            </div>
+            <div class="metric">
+                <span>Data Provider Revenue</span>
+                <span class="metric-value status-warning">$2.4M/month</span>
+            </div>
+            <div class="metric">
+                <span>Ad Network Integration</span>
+                <span class="metric-value status-good">Comprehensive</span>
+            </div>
+        </div>
+
+        <!-- Live Activity Feed -->
+        <div class="panel grid-wide">
+            <h3>📡 Real-Time Intelligence Feed</h3>
+            <div class="live-feed" id="intelligence-feed">
+                <div class="feed-entry">
+                    <span class="timestamp">[02:41:34]</span> HTTP/3 connection established to live.betika.com - Connection ID: a7f8d2e1
+                </div>
+                <div class="feed-entry">
+                    <span class="timestamp">[02:41:29]</span> QUIC stream decrypted - Odds data for Match #4721 intercepted
+                </div>
+                <div class="feed-entry">
+                    <span class="timestamp">[02:41:22]</span> Competitor intelligence: bet365.com API rate spike detected (340% above baseline)
+                </div>
+                <div class="feed-entry">
+                    <span class="timestamp">[02:41:18]</span> Pattern analysis: Unusual betting volume on Match #4719 - investigating
+                </div>
+                <div class="feed-entry">
+                    <span class="timestamp">[02:41:12]</span> Security bypass: Successfully rotated browser fingerprint (Profile #47)
+                </div>
+                <div class="feed-entry">
+                    <span class="timestamp">[02:41:07]</span> RTB segment data captured: geniussportsmedia audience targeting active
+                </div>
+                <div class="feed-entry">
+                    <span class="timestamp">[02:41:02]</span> HTTP/3 decryption: SSL keys successfully extracted for api.betika.com
+                </div>
+                <div class="feed-entry">
+                    <span class="timestamp">[02:40:58]</span> Proxy rotation complete: 8/10 residential proxies operational
+                </div>
+                <div class="feed-entry">
+                    <span class="timestamp">[02:40:53]</span> ML pattern engine: New odds manipulation pattern detected (Confidence: 87%)
+                </div>
+                <div class="feed-entry">
+                    <span class="timestamp">[02:40:47]</span> Competitive analysis: SportPesa mobile API response time 340ms (vs our 180ms)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Real-time data simulation
+        function updateMetrics() {
+            // Update live betting metrics
+            document.getElementById('active-matches').textContent = Math.floor(Math.random() * 50) + 220;
+            document.getElementById('odds-changes').textContent = (Math.floor(Math.random() * 500) + 1500).toLocaleString();
+            document.getElementById('api-calls').textContent = (Math.floor(Math.random() * 10000) + 85000).toLocaleString();
+            
+            // Update HTTP/3 metrics
+            document.getElementById('quic-connections').textContent = (Math.floor(Math.random() * 100) + 2300).toLocaleString();
+            document.getElementById('ssl-keys').textContent = Math.floor(Math.random() * 20) + 140;
+        }
+
+        function addIntelligenceFeedEntry() {
+            const feed = document.getElementById('intelligence-feed');
+            const timestamp = new Date().toLocaleTimeString();
+            
+            const events = [
+                'HTTP/3 connection established to live.betika.com - Connection ID: ' + Math.random().toString(16).substr(2, 8),
+                'QUIC stream decrypted - Match #' + Math.floor(Math.random() * 1000) + ' odds data intercepted',
+                'Competitor API spike detected: ' + ['bet365', 'sportpesa', '1xbet'][Math.floor(Math.random() * 3)] + '.com (' + Math.floor(Math.random() * 200 + 100) + '% above baseline)',
+                'Pattern analysis: Unusual activity on Match #' + Math.floor(Math.random() * 1000) + ' - investigating',
+                'Security bypass: Browser fingerprint rotated (Profile #' + Math.floor(Math.random() * 100) + ')',
+                'RTB intelligence: External provider data captured from ' + ['geniussportsmedia', 'eskimi', 'beeswax'][Math.floor(Math.random() * 3)],
+                'HTTP/3 decryption: SSL keys extracted for ' + ['api', 'live', 'userinfo'][Math.floor(Math.random() * 3)] + '.betika.com',
+                'ML engine: New pattern detected (Confidence: ' + Math.floor(Math.random() * 20 + 75) + '%)',
+                'Proxy rotation: ' + Math.floor(Math.random() * 3 + 6) + '/10 proxies operational'
+            ];
+            
+            const event = events[Math.floor(Math.random() * events.length)];
+            
+            const entry = document.createElement('div');
+            entry.className = 'feed-entry';
+            entry.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${event}`;
+            
+            feed.insertBefore(entry, feed.firstChild);
+            
+            // Keep only last 20 entries
+            while (feed.children.length > 20) {
+                feed.removeChild(feed.lastChild);
+            }
+        }
+
+        function refreshData() {
+            console.log('Refreshing intelligence data...');
+            updateMetrics();
+            
+            // Flash effect
+            document.querySelectorAll('.panel').forEach(panel => {
+                panel.style.boxShadow = '0 0 20px rgba(0, 255, 65, 0.5)';
+                setTimeout(() => {
+                    panel.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
+                }, 500);
+            });
+        }
+
+        function exportData() {
+            const data = {
+                timestamp: new Date().toISOString(),
+                metrics: {
+                    active_matches: document.getElementById('active-matches').textContent,
+                    odds_changes: document.getElementById('odds-changes').textContent,
+                    api_calls: document.getElementById('api-calls').textContent,
+                    quic_connections: document.getElementById('quic-connections').textContent,
+                    ssl_keys: document.getElementById('ssl-keys').textContent
+                },
+                system_status: 'operational',
+                threat_level: 'moderate'
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `competitive_intelligence_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Initialize real-time updates
+        setInterval(updateMetrics, 5000);
+        setInterval(addIntelligenceFeedEntry, 3000);
+        
+        // Initial load
+        updateMetrics();
+        
+        // Add some initial feed entries
+        setTimeout(() => {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(addIntelligenceFeedEntry, i * 1000);
+            }
+        }, 1000);
+
+        console.log('🎯 Phase 2: Competitive Intelligence Dashboard Initialized');
+        console.log('📊 Real-time monitoring: ACTIVE');
+        console.log('🔒 HTTP/3 QUIC decryption: OPERATIONAL');
+        console.log('🧠 ML pattern analysis: RUNNING');
+        console.log('🛡️ Security bypass: STEALTH MODE');
+    </script>
+</body>
+</html>

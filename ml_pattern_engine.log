@@ -1,0 +1,16 @@
+2025-10-03 02:57:56,590 - INFO - Starting ML Pattern Analysis Engine
+2025-10-03 02:57:56,652 - INFO - Database initialized successfully
+2025-10-03 02:57:56,652 - INFO - Pattern Analysis Engine initialized
+2025-10-03 02:57:56,653 - INFO - Starting WebSocket server on port 9001
+2025-10-03 02:57:56,723 - INFO - server listening on 127.0.0.1:9001
+2025-10-03 02:57:56,724 - INFO - server listening on [::1]:9001
+2025-10-03 02:57:56,724 - INFO - Starting real-time pattern analysis...
+2025-10-03 03:02:46,611 - INFO - Analysis engine stopped by user
+2025-10-03 03:26:21,412 - INFO - Starting ML Pattern Analysis Engine
+2025-10-03 03:26:21,413 - INFO - Database initialized successfully
+2025-10-03 03:26:21,413 - INFO - Pattern Analysis Engine initialized
+2025-10-03 03:26:21,413 - INFO - Starting WebSocket server on port 9001
+2025-10-03 03:26:21,442 - INFO - server listening on 127.0.0.1:9001
+2025-10-03 03:26:21,442 - INFO - server listening on [::1]:9001
+2025-10-03 03:26:21,443 - INFO - Starting real-time pattern analysis...
+2025-10-03 03:39:58,951 - INFO - Analysis engine stopped by user
