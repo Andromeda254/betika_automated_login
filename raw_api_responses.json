@@ -1,0 +1,170 @@
+[
+  {
+    "url": "https://cdn.betika.com/GA4/ga4-analytics-event-config.json",
+    "domain": "cdn.betika.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:09:55.918Z",
+    "dataPreview": "{\"registration\":{\"attempt\":{\"event\":\"registrationAttempt\",\"eventCategory\":\"Registration\",\"parameters\":[\"affiliateID\",\"mobileNumber\"]},\"start\":{\"event\":\"registrationStart\",\"eventCategory\":\"Registration\",\"parameters\":[\"email\",\"mobileNumber\",\"affiliateID\",\"utmSource\",\"utmMedium\",\"utmCampaign\"]},\"success\":{\"event\":\"registrationSuccess\",\"eventCategory\":\"Registration\",\"parameters\":[\"mobile\",\"userId\",\"utmSource\",\"utmMedium\",\"utmCampaign\"]},\"verify\":{\"event\":\"registrationVerified\",\"eventCategory\":\"Regis"
+  },
+  {
+    "url": "https://cdn.betika.com/seo-content/ke/meta-data-ke.json",
+    "domain": "cdn.betika.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:09:55.930Z",
+    "dataPreview": "[{\"id\":0,\"metaTitle\":\"Betika | Best Online Sports Betting in Kenya\",\"metaDesciption\":\"We have the fastest live, instant deposits and withdrawals and deposit cashback bonus. Sign up or log in to your account\"},{\"id\":1,\"sportsCategory\":\"soccer\",\"titleModifier\":\"Betting\",\"usp\":\"Football Betting Odds\",\"metaTitle\":\"Soccer Betting | Football Betting Odds | Betika\",\"metaDesciption\":\"Bet on soccer easily and securely with Betika, view soccer betting odds and place your soccer bets online. Instant cashba"
+  },
+  {
+    "url": "https://cdn.betika.com/seo-content/ke/seo-content-ke.json",
+    "domain": "cdn.betika.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:09:56.078Z",
+    "dataPreview": "[{\"id\":1,\"sportCategory\":\"soccer\",\"title\":\"Soccer Betting\",\"content\":\"<p>Join our community of <b>soccer betting</b> fans with the Betika online sports betting site that allows you to bet on all your favourite football teams</p>\\n <p>Whether you call it soccer or football, the lovely game draws crowds and punters from around the globe. Now you can join in the spirit of <b>Betika football</b> from the comfort of your own home by placing an online bet on almost any professional football league in "
+  },
+  {
+    "url": "https://api.betika.com/v1/sports",
+    "domain": "api.betika.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:09:57.599Z",
+    "dataPreview": "{\"data\":[{\"sport_id\":\"14\",\"sport_name\":\"Soccer\",\"categories\":[{\"category_id\":\"1960\",\"category_name\":\"England\",\"competitions\":[{\"competition_id\":\"222\",\"competition_name\":\"Premier League\"},{\"competition_id\":\"307\",\"competition_name\":\"National League\"},{\"competition_id\":\"167\",\"competition_name\":\"Championship\"},{\"competition_id\":\"203\",\"competition_name\":\"League One\"},{\"competition_id\":\"8398\",\"competition_name\":\"EFL Cup\"},{\"competition_id\":\"204\",\"competition_name\":\"League Two\"}]},{\"category_id\":\"2007\""
+  },
+  {
+    "url": "https://api.betika.com/v1/sports",
+    "domain": "api.betika.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:09:57.957Z",
+    "dataPreview": "{\"data\":[{\"sport_id\":\"14\",\"sport_name\":\"Soccer\",\"categories\":[{\"category_id\":\"1960\",\"category_name\":\"England\",\"competitions\":[{\"competition_id\":\"222\",\"competition_name\":\"Premier League\"},{\"competition_id\":\"307\",\"competition_name\":\"National League\"},{\"competition_id\":\"167\",\"competition_name\":\"Championship\"},{\"competition_id\":\"203\",\"competition_name\":\"League One\"},{\"competition_id\":\"8398\",\"competition_name\":\"EFL Cup\"},{\"competition_id\":\"204\",\"competition_name\":\"League Two\"}]},{\"category_id\":\"2007\""
+  },
+  {
+    "url": "https://storage.googleapis.com/betika-cdn/website/terms-and-conditions.json",
+    "domain": "storage.googleapis.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:09:58.034Z",
+    "dataPreview": "[{\"id\":1,\"title\":\"General Terms And Conditions\",\"subCategories\":[{\"id\":\"1.1\",\"title\":\"Important Information\",\"miniCategories\":[],\"content\":\"<table><tr><td><p><em>Please ensure that You read and understand these terms prior to using the Service. Acceptance of these terms and conditions is a personal undertaking to be bound by these Terms. If you do not accept these Terms, please do not use Betika’s Services. The terms contain important information about the legal agreement between You and Us and "
+  },
+  {
+    "url": "https://ip.betika.com/",
+    "domain": "ip.betika.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:09:58.063Z",
+    "dataPreview": "{\"ip\":\"105.29.166.71\",\"countryCode\":\"KE\",\"country\":\"Kenya\",\"language\":\"en-US\",\"took\":\"1ms\"}"
+  },
+  {
+    "url": "https://api.betika.com/v1/uo/totalMatches",
+    "domain": "api.betika.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:09:58.089Z",
+    "dataPreview": "{\"total_live_matches\":45,\"total_shikisha_matches\":\"2\"}"
+  },
+  {
+    "url": "https://cdn.betika.com/seo-content/ke/meta-data-ke.json",
+    "domain": "cdn.betika.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:09:58.090Z",
+    "dataPreview": "[{\"id\":0,\"metaTitle\":\"Betika | Best Online Sports Betting in Kenya\",\"metaDesciption\":\"We have the fastest live, instant deposits and withdrawals and deposit cashback bonus. Sign up or log in to your account\"},{\"id\":1,\"sportsCategory\":\"soccer\",\"titleModifier\":\"Betting\",\"usp\":\"Football Betting Odds\",\"metaTitle\":\"Soccer Betting | Football Betting Odds | Betika\",\"metaDesciption\":\"Bet on soccer easily and securely with Betika, view soccer betting odds and place your soccer bets online. Instant cashba"
+  },
+  {
+    "url": "https://live.betika.com/v1/uo/sports",
+    "domain": "live.betika.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:09:58.093Z",
+    "dataPreview": "{\"data\":[{\"sport_name\":\"Soccer\",\"count\":12,\"sport_id\":14},{\"sport_name\":\"Ice Hockey\",\"count\":8,\"sport_id\":29},{\"sport_name\":\"Basketball\",\"count\":6,\"sport_id\":30},{\"sport_name\":\"Futsal\",\"count\":2,\"sport_id\":40},{\"sport_name\":\"Volleyball\",\"count\":9,\"sport_id\":35},{\"sport_name\":\"Table Tennis\",\"count\":4,\"sport_id\":45},{\"sport_name\":\"Baseball\",\"count\":1,\"sport_id\":31},{\"sport_name\":\"Cricket\",\"count\":3,\"sport_id\":37}],\"meta\":{\"limit\":10,\"current_page\":1,\"total\":45,\"streamable\":0}}"
+  },
+  {
+    "url": "https://api.betika.com/v1/uo/matches?page=1&limit=10&tab=&sub_type_id=1,186,340&sport_id=14&tag_id=&sort_id=1&period_id=-1&esports=false",
+    "domain": "api.betika.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:09:58.103Z",
+    "dataPreview": "{\"data\":[{\"home_team\":\"Bournemouth\",\"game_id\":\"74328\",\"match_id\":\"10151162\",\"away_team\":\"Fulham\",\"start_time\":\"2025-10-03 22:00:00\",\"competition_name\":\"Premier League\",\"category\":\"England\",\"parent_match_id\":\"61300627\",\"side_bets\":\"88\",\"home_odd\":\"1.94\",\"neutral_odd\":\"3.65\",\"away_odd\":\"4.10\",\"competition_id\":\"222\",\"sport_id\":\"14\",\"sport_name\":\"Soccer\",\"is_esport\":false,\"is_srl\":false,\"odds\":[{\"sub_type_id\":\"1\",\"name\":\"1X2\",\"odds\":[{\"display\":\"1\",\"odd_key\":\"Bournemouth\",\"odd_def\":\"{$competitor1}\","
+  },
+  {
+    "url": "https://api.betika.com/v1/uo/sport?page=1&limit=1000&id=14",
+    "domain": "api.betika.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:09:58.106Z",
+    "dataPreview": "{\"data\":[{\"category_id\":\"1960\",\"category_name\":\"England\",\"competitions\":[{\"competition_id\":\"222\",\"competition_name\":\"Premier League\",\"count\":\"20\"},{\"competition_id\":\"307\",\"competition_name\":\"National League\",\"count\":\"12\"},{\"competition_id\":\"167\",\"competition_name\":\"Championship\",\"count\":\"12\"},{\"competition_id\":\"203\",\"competition_name\":\"League One\",\"count\":\"11\"},{\"competition_id\":\"8398\",\"competition_name\":\"EFL Cup\",\"count\":\"8\"},{\"competition_id\":\"204\",\"competition_name\":\"League Two\",\"count\":\"12\"}"
+  },
+  {
+    "url": "https://api.betika.com/v1/uo/matches?page=1&limit=10&tab=&sub_type_id=1,186,340&sport_id=14&sort_id=1&period_id=-1&esports=false",
+    "domain": "api.betika.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:09:58.142Z",
+    "dataPreview": "{\"data\":[{\"home_team\":\"Bournemouth\",\"game_id\":\"74328\",\"match_id\":\"10151162\",\"away_team\":\"Fulham\",\"start_time\":\"2025-10-03 22:00:00\",\"competition_name\":\"Premier League\",\"category\":\"England\",\"parent_match_id\":\"61300627\",\"side_bets\":\"88\",\"home_odd\":\"1.94\",\"neutral_odd\":\"3.65\",\"away_odd\":\"4.10\",\"competition_id\":\"222\",\"sport_id\":\"14\",\"sport_name\":\"Soccer\",\"is_esport\":false,\"is_srl\":false,\"odds\":[{\"sub_type_id\":\"1\",\"name\":\"1X2\",\"odds\":[{\"display\":\"1\",\"odd_key\":\"Bournemouth\",\"odd_def\":\"{$competitor1}\","
+  },
+  {
+    "url": "https://api.betika.com/v1/uo/matches?page=1&limit=10&tab=&sub_type_id=1,186,340&sport_id=14&sort_id=1&period_id=-1&esports=false",
+    "domain": "api.betika.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:09:58.143Z",
+    "dataPreview": "{\"data\":[{\"home_team\":\"Bournemouth\",\"game_id\":\"74328\",\"match_id\":\"10151162\",\"away_team\":\"Fulham\",\"start_time\":\"2025-10-03 22:00:00\",\"competition_name\":\"Premier League\",\"category\":\"England\",\"parent_match_id\":\"61300627\",\"side_bets\":\"88\",\"home_odd\":\"1.94\",\"neutral_odd\":\"3.65\",\"away_odd\":\"4.10\",\"competition_id\":\"222\",\"sport_id\":\"14\",\"sport_name\":\"Soccer\",\"is_esport\":false,\"is_srl\":false,\"odds\":[{\"sub_type_id\":\"1\",\"name\":\"1X2\",\"odds\":[{\"display\":\"1\",\"odd_key\":\"Bournemouth\",\"odd_def\":\"{$competitor1}\","
+  },
+  {
+    "url": "https://api.betika.com/v1/uo/matches?page=1&limit=10&tab=&sub_type_id=1,186,340&sport_id=14&sort_id=1&period_id=-1&esports=false",
+    "domain": "api.betika.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:09:58.722Z",
+    "dataPreview": "{\"data\":[{\"home_team\":\"Bournemouth\",\"game_id\":\"74328\",\"match_id\":\"10151162\",\"away_team\":\"Fulham\",\"start_time\":\"2025-10-03 22:00:00\",\"competition_name\":\"Premier League\",\"category\":\"England\",\"parent_match_id\":\"61300627\",\"side_bets\":\"88\",\"home_odd\":\"1.94\",\"neutral_odd\":\"3.65\",\"away_odd\":\"4.10\",\"competition_id\":\"222\",\"sport_id\":\"14\",\"sport_name\":\"Soccer\",\"is_esport\":false,\"is_srl\":false,\"odds\":[{\"sub_type_id\":\"1\",\"name\":\"1X2\",\"odds\":[{\"display\":\"1\",\"odd_key\":\"Bournemouth\",\"odd_def\":\"{$competitor1}\","
+  },
+  {
+    "url": "https://dsp-ap.eskimi.com/v2/gtr?id=25605&url=https%3A%2F%2Fwww.betika.com%2Fen-ke%2F&t=1759450198991",
+    "domain": "dsp-ap.eskimi.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:10:00.594Z",
+    "dataPreview": "{\"dmpId\":\"71eac813-9c82-46a7-8c70-af9bff3d41d7\",\"pixels\":[\"https://dsum-sec.casalemedia.com/rum?cm_dsp_id=244&external_user_id=71eac813-9c82-46a7-8c70-af9bff3d41d7&gdpr=0&gdpr_consent=1\",\"https://rtb-csync.smartadserver.com/redir/?partnerid=156&partneruserid=71eac813-9c82-46a7-8c70-af9bff3d41d7&gdpr=0&gdpr_consent=1\",\"https://cm.g.doubleclick.net/pixel?google_nid=eskimi&google_hm=71eac813-9c82-46a7-8c70-af9bff3d41d7&gdpr=0&gdpr_consent=1\",\"https://csync.loopme.me/?partner_id=324&uid=71eac813-9c8"
+  },
+  {
+    "url": "https://settings.luckyorange.net/?u=https%3A%2F%2Fwww.betika.com%2Fen-ke%2F&s=329453",
+    "domain": "settings.luckyorange.net",
+    "status": 200,
+    "timestamp": "2025-10-03T00:10:00.694Z",
+    "dataPreview": "{\"over\":false,\"opted_out\":false,\"paused\":\"1\",\"is_bot\":false,\"dont_track\":1,\"domain_valid\":true,\"master\":\"53422\",\"site_id\":329453}"
+  },
+  {
+    "url": "https://www.betika.com/en-ke/static/manifest.json",
+    "domain": "www.betika.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:10:00.995Z",
+    "dataPreview": "{\"name\":\"Betika Mobile\",\"short_name\":\"Betika Mobile\",\"icons\":[{\"src\":\"./images/icon-120x120.png\",\"sizes\":\"120x120\",\"type\":\"image/png\"},{\"src\":\"./images/apple-icon-152x152.png\",\"sizes\":\"152x152\",\"type\":\"./image/png\"},{\"src\":\"./images/ms-icon-144x144.png\",\"sizes\":\"144x144\",\"type\":\"image/png\"},{\"src\":\"./images/android-icon-192x192.png\",\"sizes\":\"192x192\",\"type\":\"image/png\"}],\"start_url\":\"./index.html?utm_source=pwa\",\"display\":\"standalone\",\"background_color\":\"#7ED321\",\"theme_color\":\"#7ED321\",\"author\""
+  },
+  {
+    "url": "https://betika.zendesk.com/embeddable/config",
+    "domain": "betika.zendesk.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:10:01.383Z",
+    "dataPreview": "{\"hideZendeskLogo\":true,\"brand\":\"BETIKA KE\",\"brandCount\":8,\"color\":\"#3eb83a\",\"position\":\"left\",\"embeds\":{},\"features\":{\"fastLoad\":true}}"
+  },
+  {
+    "url": "https://api.betika.com/v1/login",
+    "domain": "api.betika.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:10:14.014Z",
+    "dataPreview": "{\"data\":{\"user\":{\"id\":\"26949036\",\"mobile\":\"254713082001\",\"balance\":\"0.00\",\"bonus\":\"0.00\",\"points\":null}},\"token\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9iZXRpa2EuY29tIiwiaWF0IjoxNzU5NDUwMjEzLCJuYmYiOjE3NTY4NTgyMTMsImV4cCI6MTc2MjA0MjIxMywidXNlciI6eyJpZCI6IjI2OTQ5MDM2IiwibW9iaWxlIjoiMjU0NzEzMDgyMDAxIiwiYmFsYW5jZSI6IjAuMDAiLCJib251cyI6IjAuMDAiLCJwb2ludHMiOm51bGx9fQ.kVC4D9ECFGIBhd9iXg-WL_odz6ZpPozmk8bB_fKm66Y\",\"meta\":[],\"self_exclusion\":false}"
+  },
+  {
+    "url": "https://api.betika.com/v2/cashout/whitelist?profile_id=26949036",
+    "domain": "api.betika.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:10:14.344Z",
+    "dataPreview": "{\"status_code\":200,\"message\":\"26949036 Can cashout\"}"
+  },
+  {
+    "url": "https://api-freebets.betika.com/free-bets-profile",
+    "domain": "api-freebets.betika.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:10:14.453Z",
+    "dataPreview": "[]"
+  },
+  {
+    "url": "https://api.betika.com/v2/cashout/validations",
+    "domain": "api.betika.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:10:14.456Z",
+    "dataPreview": "[{\"rule_name\":\"competition\",\"rule_values\":\"19508,19488,33641\"},{\"rule_name\":\"sport\",\"rule_values\":\"14\"},{\"rule_name\":\"sub_type_id\",\"rule_values\":\"2,1,18,1,18,10,47,14,29,45,41,8,19,20,880,879,881,23,24,26,199,21,32,31,13,60,68,62,63,75,81,72,73,77,76,80,71,69,70,83,90,85,95,97,92,91,96,162,166,167,168,169,170,171,172,173,177,174,178,179,182,180,181,183,37,35,547,546,79,78,544,543,113,116,115,897,119,121,118\"}]"
+  },
+  {
+    "url": "https://api.betika.com/v1/balance",
+    "domain": "api.betika.com",
+    "status": 200,
+    "timestamp": "2025-10-03T00:10:14.474Z",
+    "dataPreview": "{\"data\":{\"balance\":0,\"bonus\":0,\"points\":0}}"
+  }
+]

@@ -1,0 +1,51 @@
+{
+  "timestamp": "2025-10-02T23:58:36.778Z",
+  "url": "https://www.betika.com/en-ke/s/soccer/countries",
+  "sportsFound": [
+    {
+      "text": "Countries",
+      "href": "https://www.betika.com/en-ke/s/soccer/countries",
+      "selector": "a[href*=\"soccer\"]"
+    },
+    {
+      "text": "Soccer",
+      "href": "",
+      "selector": "[class*=\"sport\"]"
+    },
+    {
+      "text": "Bournemouth Fulham 1.943.654.10",
+      "href": "",
+      "selector": "[class*=\"bet\"]"
+    }
+  ],
+  "bettingOptions": [
+    {
+      "text": "Normal (0)\n\t\t \n\t\t\tShikisha Bet (0)\n\t\t \n\t\t\tVirtuals (0)\n\t\t  Loading...  \n\t\t\tDo you have a shared bets",
+      "odds": [
+        "No odds found"
+      ],
+      "selector": "[class*=\"bet\"]"
+    },
+    {
+      "text": "Normal (0)\n\t\t \n\t\t\tShikisha Bet (0)\n\t\t \n\t\t\tVirtuals (0)",
+      "odds": [
+        "No odds found"
+      ],
+      "selector": "[class*=\"bet\"]"
+    },
+    {
+      "text": "Shikisha Bet (0)",
+      "odds": [
+        "No odds found"
+      ],
+      "selector": "[class*=\"bet\"]"
+    },
+    {
+      "text": "Virtuals (0)",
+      "odds": [
+        "No odds found"
+      ],
+      "selector": "[class*=\"bet\"]"
+    }
+  ]
+}
